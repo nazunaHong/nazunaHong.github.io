@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>你的名字 · 个人主页</title>
+<meta name="description" content="个人作品集与简介 —— 项目、技能与联系方式。">
+<link rel="stylesheet" href="assets/style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✦</text></svg>">
+</head>
+<body>
+
+<a class="skip-link" href="#main">跳到主要内容</a>
+
+<header class="site-header" id="top">
+  <nav class="nav wrap">
+    <a class="brand" href="#top">
+      <span class="brand-mark">✦</span>
+      <span>你的名字</span>
+    </a>
+    <button class="nav-toggle" id="navToggle" aria-label="打开导航菜单" aria-expanded="false" aria-controls="navMenu">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-menu" id="navMenu">
+      <li><a href="#about">关于</a></li>
+      <li><a href="#work">项目</a></li>
+      <li><a href="#skills">技能</a></li>
+      <li><a href="#contact">联系</a></li>
+      <li><a class="btn btn-small" href="#contact">合作一下</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main id="main">
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-bg" aria-hidden="true"></div>
+    <div class="wrap hero-inner">
+      <p class="eyebrow"><span class="dot"></span>目前开放合作机会</p>
+      <h1>你好，我是<span class="grad">你的名字</span></h1>
+      <p class="lede">
+        我是一名<span class="hl">产品设计师 / 开发者</span>，专注于把复杂的想法
+        打磨成干净、能用、让人愿意用的数字产品。目前在探索
+        <span class="hl">AI 辅助设计</span>与<span class="hl">开发者工具</span>方向。
+      </p>
+      <div class="cta-row">
+        <a class="btn" href="#work">查看作品</a>
+        <a class="btn btn-ghost" href="#contact">联系我</a>
+      </div>
+      <ul class="hero-stats">
+        <li><strong>5+</strong><span>年经验</span></li>
+        <li><strong>40+</strong><span>个项目交付</span></li>
+        <li><strong>12</strong><span>开源贡献</span></li>
+      </ul>
+    </div>
+    <a class="scroll-hint" href="#about" aria-label="向下滚动"><span></span></a>
+  </section>
+
+  <!-- About -->
+  <section id="about" class="section">
+    <div class="wrap">
+      <p class="section-tag">01 / 关于</p>
+      <h2 class="section-title">把问题想清楚，<br>再把它做简单。</h2>
+      <div class="about-grid">
+        <div class="about-text">
+          <p>
+            我相信好的产品来自两个前提：<strong>真正理解使用它的人</strong>，
+            以及<strong>敢于砍掉多余的东西</strong>。从需求梳理、交互原型，
+            到前端实现与上线交付，我习惯一个人把整条链路走通。
+          </p>
+          <p>
+            工作之外，我写技术文章、折腾开源小工具、爬山，
+            以及不断练习用更少的代码解决更多的问题。
+          </p>
+          <div class="tags">
+            <span>产品设计</span><span>前端工程</span><span>设计系统</span>
+            <span>AI 工作流</span><span>开源</span>
+          </div>
+        </div>
+        <aside class="card about-card">
+          <h3>快速事实</h3>
+          <dl>
+            <div><dt>所在地</dt><dd>中国 · 杭州</dd></div>
+            <div><dt>当前状态</dt><dd><span class="status-ok">在职</span>，寻求有意思的新机会</dd></div>
+            <div><dt>语言</dt><dd>中文 · English</dd></div>
+            <div><dt>邮箱</dt><dd><a href="mailto:hello@example.com">hello@example.com</a></dd></div>
+          </dl>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- Work -->
+  <section id="work" class="section section-alt">
+    <div class="wrap">
+      <p class="section-tag">02 / 项目</p>
+      <h2 class="section-title">一些做过的东西。</h2>
+      <p class="section-sub">精选三个项目，覆盖从工具到内容再到基础设施。</p>
+
+      <div class="cards">
+        <article class="card project">
+          <div class="project-visual v1" aria-hidden="true"><span>⚡</span></div>
+          <div class="project-body">
+            <div class="project-meta"><span class="pill">开发者工具</span><span>2025</span></div>
+            <h3>Flow CLI</h3>
+            <p>一个把重复工作自动化的命令行工具，支持用自然语言描述生成工作流，把三天的手工操作压缩到三分钟。</p>
+            <ul class="project-points">
+              <li>架构设计 + TypeScript 实现</li>
+              <li>开源后 2.4k star</li>
+            </ul>
+            <div class="project-links">
+              <a href="#" class="link">项目主页 ↗</a>
+              <a href="#" class="link">源码 ↗</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="card project">
+          <div class="project-visual v2" aria-hidden="true"><span>◈</span></div>
+          <div class="project-body">
+            <div class="project-meta"><span class="pill">内容 / 社区</span><span>2024</span></div>
+            <h3>Design Notes</h3>
+            <p>一个面向设计师的中文知识站点，累计 120+ 篇原创文章，覆盖设计系统、AI 工具与团队协作。</p>
+            <ul class="project-points">
+              <li>从 0 搭建 Next.js 前端</li>
+              <li>月活稳定在 1.5 万</li>
+            </ul>
+            <div class="project-links">
+              <a href="#" class="link">访问站点 ↗</a>
+              <a href="#" class="link">写作复盘 ↗</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="card project">
+          <div class="project-visual v3" aria-hidden="true"><span>◐</span></div>
+          <div class="project-body">
+            <div class="project-meta"><span class="pill">基础设施</span><span>2023</span></div>
+            <h3>Data Kit</h3>
+            <p>一套轻量数据处理工具集，用统一接口清洗和同步多来源数据，让团队每周省下约 20 小时人工整理。</p>
+            <ul class="project-points">
+              <li>核心库 + CLI 双形态</li>
+              <li>被 3 个内部团队接入</li>
+            </ul>
+            <div class="project-links">
+              <a href="#" class="link">案例说明 ↗</a>
+              <a href="#" class="link">技术文档 ↗</a>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Skills -->
+  <section id="skills" class="section">
+    <div class="wrap">
+      <p class="section-tag">03 / 技能</p>
+      <h2 class="section-title">我的工具箱。</h2>
+      <div class="skills-grid">
+        <div class="skill-col">
+          <h3 class="skill-head">设计与产品</h3>
+          <ul class="skill-list">
+            <li style="--w: 90%"><span>界面设计</span><em>90%</em></li>
+            <li style="--w: 85%"><span>交互原型</span><em>85%</em></li>
+            <li style="--w: 80%"><span>设计系统搭建</span><em>80%</em></li>
+            <li style="--w: 70%"><span>用户研究</span><em>70%</em></li>
+          </ul>
+        </div>
+        <div class="skill-col">
+          <h3 class="skill-head">工程实现</h3>
+          <ul class="skill-list">
+            <li style="--w: 90%"><span>TypeScript</span><em>90%</em></li>
+            <li style="--w: 88%"><span>React / Next.js</span><em>88%</em></li>
+            <li style="--w: 85%"><span>CSS 与动效</span><em>85%</em></li>
+            <li style="--w: 75%"><span>Node.js</span><em>75%</em></li>
+          </ul>
+        </div>
+        <div class="skill-col">
+          <h3 class="skill-head">协作与工具</h3>
+          <ul class="skill-list">
+            <li style="--w: 95%"><span>Figma</span><em>95%</em></li>
+            <li style="--w: 82%"><span>Git / CI</span><em>82%</em></li>
+            <li style="--w: 80%"><span>AI 辅助工作流</span><em>80%</em></li>
+            <li style="--w: 78%"><span>技术写作</span><em>78%</em></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact" class="section section-alt">
+    <div class="wrap">
+      <p class="section-tag">04 / 联系</p>
+      <h2 class="section-title">聊聊？</h2>
+      <p class="section-sub">
+        无论是合作、咨询，还是只是想聊聊某个有意思的技术点，
+        我都很乐意收到你的消息。
+      </p>
+      <div class="contact-grid">
+        <a class="contact-card" href="mailto:hello@example.com">
+          <span class="contact-icon">✉</span>
+          <span class="contact-body">
+            <strong>发邮件</strong>
+            <em>hello@example.com</em>
+          </span>
+        </a>
+        <a class="contact-card" href="#" >
+          <span class="contact-icon">◍</span>
+          <span class="contact-body">
+            <strong>GitHub</strong>
+            <em>@yourname</em>
+          </span>
+        </a>
+        <a class="contact-card" href="#">
+          <span class="contact-icon">✆</span>
+          <span class="contact-body">
+            <strong>社交平台</strong>
+            <em>@yourname</em>
+          </span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap footer-inner">
+    <p>© <span id="year">2026</span> 你的名字 · 用 GitHub Pages 发布</p>
+    <a href="#top" class="to-top">回到顶部 ↑</a>
+  </div>
+</footer>
+
+<script src="assets/main.js"></script>
+</body>
+</html>
