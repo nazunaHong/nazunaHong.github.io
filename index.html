@@ -3,237 +3,428 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>你的名字 · 个人主页</title>
-<meta name="description" content="个人作品集与简介 —— 项目、技能与联系方式。">
-<link rel="stylesheet" href="assets/style.css">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✦</text></svg>">
+<title>nazunaHong · 独立开发者 / 前端工程师</title>
+<meta name="description" content="nazunaHong 的个人主页 —— 独立开发者，专注前端工程与交互设计。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Noto+Sans+SC:wght@300;400;500;700&family=Noto+Serif+SC:wght@400;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      colors: {
+        paper: '#f7f5f0',
+        ink:   '#14171e',
+        body:  '#3a4256',
+        muted: '#7c7a72',
+        line:  '#e9e3d6',
+        primary: '#2f6f5e',
+        accent:  '#c97b3f'
+      },
+      fontFamily: {
+        display: ['"DM Serif Display"', '"Noto Serif SC"', 'serif'],
+        sans:    ['Outfit', '"Noto Sans SC"', 'sans-serif'],
+        mono:    ['"JetBrains Mono"', 'monospace']
+      }
+    }
+  }
+}
+</script>
+<style>
+  html { scroll-behavior: smooth; }
+  body { background: #f7f5f0; }
+  ::selection { background: rgba(47,111,94,.16); }
+
+  .grain::before {
+    content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 0;
+    background:
+      radial-gradient(900px 500px at 8% -8%, rgba(201,123,63,.10), transparent 60%),
+      radial-gradient(760px 460px at 104% 12%, rgba(47,111,94,.10), transparent 62%);
+  }
+  .layer { position: relative; z-index: 1; }
+
+  .rule { height: 1px; background: linear-gradient(90deg, transparent, var(--line) 12%, var(--line) 88%, transparent); }
+
+  .fade-up { opacity: 0; transform: translateY(14px); transition: opacity .7s cubic-bezier(.2,.7,.3,1), transform .7s cubic-bezier(.2,.7,.3,1); }
+  .fade-up.in { opacity: 1; transform: none; }
+
+  .proj { transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease; }
+  .proj:hover { transform: translateY(-4px); box-shadow: 0 10px 30px -8px rgba(20,23,30,.16); border-color: rgba(47,111,94,.35); }
+
+  .bar-fill { transition: width 1.1s cubic-bezier(.2,.7,.3,1); }
+
+  .bench-row { display: grid; grid-template-columns: 130px minmax(0,1fr) 34px; gap: 14px; align-items: center; padding: 7px 0; }
+  .bench-row .label { white-space: nowrap; }
+  .bench-row .bar-bg { height: 16px; background: rgba(233,227,214,.9); border-radius: 6px; overflow: hidden; }
+  .bench-row .val { font-family: "JetBrains Mono", monospace; font-size: 12px; color: #7c7a72; text-align: right; }
+  @media (max-width: 420px) {
+    .bench-row { grid-template-columns: minmax(0,1fr) 34px; row-gap: 4px; }
+    .bench-row .label { grid-column: 1 / -1; }
+  }
+  .tag { transition: background .2s ease, color .2s ease, border-color .2s ease; }
+  .tag:hover { background: rgba(47,111,94,.10); color: #2f6f5e; border-color: rgba(47,111,94,.35); }
+
+  .tl::before {
+    content: ""; position: absolute; left: 17px; top: 10px; bottom: 10px; width: 2px;
+    background: linear-gradient(180deg, #2f6f5e, #c97b3f);
+  }
+  .tl-dot {
+    position: absolute; left: 0; top: 2px; width: 36px; height: 36px; border-radius: 50%;
+    background: #fff; border: 2px solid #2f6f5e; display: flex; align-items: center; justify-content: center;
+  }
+
+  .nav-link { position: relative; }
+  .nav-link::after {
+    content: ""; position: absolute; left: 0; bottom: -4px; height: 1.5px; width: 0; background: #2f6f5e;
+    transition: width .28s ease;
+  }
+  .nav-link:hover::after { width: 100%; }
+
+  .card { background: #fff; border: 1px solid #e9e3d6; border-radius: 16px; box-shadow: 0 2px 8px rgba(0,0,0,.04); }
+  .card-soft { background: rgba(255,255,255,.62); backdrop-filter: blur(6px); border: 1px solid #e9e3d6; border-radius: 16px; }
+</style>
 </head>
-<body>
+<body class="grain font-sans text-body antialiased">
 
-<a class="skip-link" href="#main">跳到主要内容</a>
-
-<header class="site-header" id="top">
-  <nav class="nav wrap">
-    <a class="brand" href="#top">
-      <span class="brand-mark">✦</span>
-      <span>你的名字</span>
+<!-- ══ NAV ══ -->
+<header class="layer sticky top-0 z-30 border-b border-line/70 bg-paper/85 backdrop-blur">
+  <nav class="mx-auto flex max-w-5xl items-center justify-between px-6 py-3.5 md:px-8">
+    <a href="#top" class="flex items-center gap-2.5">
+      <span class="grid h-8 w-8 place-items-center rounded-lg bg-primary text-[13px] font-bold text-white">林</span>
+      <span class="font-display text-[19px] tracking-tight text-ink">林向晚</span>
     </a>
-    <button class="nav-toggle" id="navToggle" aria-label="打开导航菜单" aria-expanded="false" aria-controls="navMenu">
-      <span></span><span></span><span></span>
-    </button>
-    <ul class="nav-menu" id="navMenu">
-      <li><a href="#about">关于</a></li>
-      <li><a href="#work">项目</a></li>
-      <li><a href="#skills">技能</a></li>
-      <li><a href="#contact">联系</a></li>
-      <li><a class="btn btn-small" href="#contact">合作一下</a></li>
-    </ul>
+    <div class="hidden items-center gap-8 text-[14px] text-muted md:flex">
+      <a class="nav-link hover:text-ink" href="#work">作品</a>
+      <a class="nav-link hover:text-ink" href="#about">关于</a>
+      <a class="nav-link hover:text-ink" href="#stack">技术栈</a>
+      <a class="nav-link hover:text-ink" href="#path">经历</a>
+      <a class="nav-link hover:text-ink" href="#contact">联系</a>
+    </div>
+    <a href="#contact" class="rounded-full border border-primary/30 px-4 py-1.5 text-[13px] font-medium text-primary transition hover:bg-primary hover:text-white">聊聊</a>
   </nav>
 </header>
 
-<main id="main">
+<!-- ══ HERO ══ -->
+<section id="top" class="layer">
+  <div class="mx-auto max-w-5xl px-6 pt-16 pb-14 md:px-8 md:pt-24 md:pb-20">
+    <div class="grid grid-cols-1 items-end gap-8 md:grid-cols-12">
+      <div class="md:col-span-8">
+        <p class="fade-up mb-5 flex items-center gap-2 font-mono text-[12.5px] uppercase tracking-[.18em] text-accent">
+          <span class="inline-block h-1.5 w-1.5 rounded-full bg-accent"></span>
+          Independent Developer · Hangzhou
+        </p>
+        <h1 class="fade-up font-display text-[34px] leading-[1.25] tracking-[-0.01em] text-ink md:text-[52px]">
+          我把复杂的界面<br class="hidden md:block">做成<b class="font-semibold text-primary">顺手</b>的工具。
+        </h1>
+        <p class="fade-up mt-6 max-w-xl text-[15px] leading-[1.65] text-body">
+          八年 Web 前端与交互设计经验，专注性能、可访问性与设计系统的落地。最近在做一个面向独立开发者的数据可视化工具。
+        </p>
+        <div class="fade-up mt-8 flex flex-wrap items-center gap-3">
+          <a href="#work" class="group inline-flex items-center gap-2 rounded-full bg-primary px-5 py-2.5 text-[14px] font-medium text-white transition hover:bg-[#265c4d]">
+            看作品
+            <svg class="h-4 w-4 transition-transform group-hover:translate-x-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+          <a href="mailto:hello@example.com" class="inline-flex items-center gap-2 rounded-full border border-line bg-white px-5 py-2.5 text-[14px] font-medium text-ink transition hover:border-primary/40 hover:text-primary">
+            <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 6 10-6"/></svg>
+            写封邮件
+          </a>
+        </div>
+      </div>
 
-  <!-- Hero -->
-  <section class="hero">
-    <div class="hero-bg" aria-hidden="true"></div>
-    <div class="wrap hero-inner">
-      <p class="eyebrow"><span class="dot"></span>目前开放合作机会</p>
-      <h1>你好，我是<span class="grad">你的名字</span></h1>
-      <p class="lede">
-        我是一名<span class="hl">产品设计师 / 开发者</span>，专注于把复杂的想法
-        打磨成干净、能用、让人愿意用的数字产品。目前在探索
-        <span class="hl">AI 辅助设计</span>与<span class="hl">开发者工具</span>方向。
+      <!-- 快速指标 -->
+      <div class="md:col-span-4">
+        <div class="card-soft fade-up p-5">
+          <p class="font-mono text-[11.5px] uppercase tracking-[.16em] text-muted">Currently</p>
+          <div class="mt-4 space-y-3.5">
+            <div class="flex items-start gap-3">
+              <span class="mt-1.5 h-2 w-2 shrink-0 rounded-full bg-primary"></span>
+              <div>
+                <p class="text-[14px] font-medium text-ink">开源维护者</p>
+                <p class="text-[13px] text-muted">2 个库 · 1.8k stars</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-3">
+              <span class="mt-1.5 h-2 w-2 shrink-0 rounded-full bg-accent"></span>
+              <div>
+                <p class="text-[14px] font-medium text-ink">在做「潮汐」可视化工具</p>
+                <p class="text-[13px] text-muted">公测中 · 邀请制</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-3">
+              <span class="mt-1.5 h-2 w-2 shrink-0 rounded-full border border-muted"></span>
+              <div>
+                <p class="text-[14px] font-medium text-ink">正在读书</p>
+                <p class="text-[13px] text-muted">《设计中的设计》</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="rule mx-auto max-w-5xl"></div>
+</section>
+
+<!-- ══ WORK ══ -->
+<section id="work" class="layer">
+  <div class="mx-auto max-w-5xl px-6 py-14 md:px-8 md:py-20">
+    <div class="mb-10 flex items-end justify-between gap-6">
+      <div>
+        <p class="font-mono text-[12px] uppercase tracking-[.18em] text-accent">Selected Work</p>
+        <h2 class="mt-2 font-display text-[26px] tracking-tight text-ink md:text-[32px]">最近做的几件事</h2>
+      </div>
+      <p class="hidden max-w-xs text-right text-[13.5px] leading-relaxed text-muted md:block">
+        挑了三个有代表性的，按时间倒序
       </p>
-      <div class="cta-row">
-        <a class="btn" href="#work">查看作品</a>
-        <a class="btn btn-ghost" href="#contact">联系我</a>
-      </div>
-      <ul class="hero-stats">
-        <li><strong>5+</strong><span>年经验</span></li>
-        <li><strong>40+</strong><span>个项目交付</span></li>
-        <li><strong>12</strong><span>开源贡献</span></li>
-      </ul>
     </div>
-    <a class="scroll-hint" href="#about" aria-label="向下滚动"><span></span></a>
-  </section>
 
-  <!-- About -->
-  <section id="about" class="section">
-    <div class="wrap">
-      <p class="section-tag">01 / 关于</p>
-      <h2 class="section-title">把问题想清楚，<br>再把它做简单。</h2>
-      <div class="about-grid">
-        <div class="about-text">
-          <p>
-            我相信好的产品来自两个前提：<strong>真正理解使用它的人</strong>，
-            以及<strong>敢于砍掉多余的东西</strong>。从需求梳理、交互原型，
-            到前端实现与上线交付，我习惯一个人把整条链路走通。
+    <div class="grid grid-cols-1 gap-5 md:grid-cols-12">
+      <!-- 主项目 -->
+      <article class="proj card p-7 md:col-span-7">
+        <div class="flex items-center justify-between">
+          <span class="rounded-md bg-primary/10 px-2.5 py-1 font-mono text-[11px] font-medium text-primary">FLAGSHIP</span>
+          <span class="font-mono text-[12px] text-muted">2024 — 至今</span>
+        </div>
+        <h3 class="mt-4 font-display text-[22px] text-ink">潮汐 Tidal · 数据可视化工作台</h3>
+        <p class="mt-3 text-[14px] leading-[1.65] text-body">
+          把杂乱的时间序列数据变成能讲故事的画面。支持拖拽式图表编排、实时协作与一键导出。
+        </p>
+        <div class="mt-6 flex flex-wrap gap-2">
+          <span class="tag rounded-md border border-line px-2.5 py-1 text-[12px] text-muted">TypeScript</span>
+          <span class="tag rounded-md border border-line px-2.5 py-1 text-[12px] text-muted">WebGL</span>
+          <span class="tag rounded-md border border-line px-2.5 py-1 text-[12px] text-muted">CRDT</span>
+          <span class="tag rounded-md border border-line px-2.5 py-1 text-[12px] text-muted">Canvas</span>
+        </div>
+        <div class="mt-6 grid grid-cols-3 gap-3 border-t border-line pt-5">
+          <div><p class="font-display text-[20px] text-ink">1.2k</p><p class="text-[12px] text-muted">内测用户</p></div>
+          <div><p class="font-display text-[20px] text-ink">60fps</p><p class="text-[12px] text-muted">万点渲染</p></div>
+          <div><p class="font-display text-[20px] text-ink">99.9%</p><p class="text-[12px] text-muted">月度可用性</p></div>
+        </div>
+      </article>
+
+      <!-- 次项目 -->
+      <article class="proj card p-7 md:col-span-5">
+        <span class="font-mono text-[12px] text-muted">2023</span>
+        <h3 class="mt-3 font-display text-[20px] text-ink">Design Token Kit</h3>
+        <p class="mt-3 text-[14px] leading-[1.65] text-body">
+          一套跨端设计令牌方案，Figma 到 iOS / Android / Web 无损同步，团队协作效率提升明显。
+        </p>
+        <div class="mt-5 flex flex-wrap gap-2">
+          <span class="tag rounded-md border border-line px-2.5 py-1 text-[12px] text-muted">Design System</span>
+          <span class="tag rounded-md border border-line px-2.5 py-1 text-[12px] text-muted">JSON Schema</span>
+        </div>
+      </article>
+
+      <!-- 小卡 -->
+      <article class="proj card p-6 md:col-span-4">
+        <svg class="h-5 w-5 text-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M5.6 18.4l2.1-2.1M16.3 7.7l2.1-2.1"/><circle cx="12" cy="12" r="3"/></svg>
+        <h3 class="mt-3 font-display text-[18px] text-ink">Svelite</h3>
+        <p class="mt-2 text-[13.5px] leading-relaxed text-body">一个 3KB 的响应式状态库，无依赖，TypeScript 原生类型。</p>
+        <p class="mt-4 font-mono text-[12.5px] text-primary">640 stars</p>
+      </article>
+
+      <article class="proj card p-6 md:col-span-4">
+        <svg class="h-5 w-5 text-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m7 14 3-3 3 3 5-6"/></svg>
+        <h3 class="mt-3 font-display text-[18px] text-ink">Chart Recipes</h3>
+        <p class="mt-2 text-[13.5px] leading-relaxed text-body">42 个可直接抄的图表实现，全部无障碍可读。</p>
+        <p class="mt-4 font-mono text-[12.5px] text-primary">1.1k stars</p>
+      </article>
+
+      <article class="proj card p-6 md:col-span-4">
+        <svg class="h-5 w-5 text-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
+        <h3 class="mt-3 font-display text-[18px] text-ink">Writing</h3>
+        <p class="mt-2 text-[13.5px] leading-relaxed text-body">写了 30+ 篇工程与设计长文，关于性能预算与视觉一致性。</p>
+        <p class="mt-4 font-mono text-[12.5px] text-primary">medium · 8.4k 订阅</p>
+      </article>
+    </div>
+  </div>
+  <div class="rule mx-auto max-w-5xl"></div>
+</section>
+
+<!-- ══ ABOUT + STACK ══ -->
+<section id="about" class="layer">
+  <div class="mx-auto max-w-5xl px-6 py-14 md:px-8 md:py-20">
+    <div class="grid grid-cols-1 gap-10 md:grid-cols-12">
+      <div class="md:col-span-5">
+        <p class="font-mono text-[12px] uppercase tracking-[.18em] text-accent">About</p>
+        <h2 class="mt-2 font-display text-[26px] tracking-tight text-ink md:text-[32px]">关于我</h2>
+        <p class="mt-5 text-[15px] leading-[1.7] text-body">
+          我相信好的工具应该「看起来就该是这样」。八年里在创业公司做过 SaaS 平台，在大厂带过设计系统，
+          现在独立开发。我喜欢把模糊的需求打磨成清晰的交互，把慢的页面变快，把说不清的规范写成文档。
+        </p>
+        <p class="mt-4 text-[15px] leading-[1.7] text-body">
+          除了写代码，我还会画界面原型、剪视频，偶尔在播客里聊聊独立开发者的日常。
+        </p>
+      </div>
+
+      <div id="stack" class="md:col-span-7">
+        <p class="font-mono text-[12px] uppercase tracking-[.18em] text-accent">Stack</p>
+        <h2 class="mt-2 font-display text-[26px] tracking-tight text-ink md:text-[32px]">常用技术</h2>
+        <div class="mt-6 card p-6">
+          <div class="bench-row">
+            <span class="label text-[13.5px] font-medium text-ink">TypeScript</span>
+            <div class="bar-bg"><div class="bar-fill h-full rounded-md" style="width:0%;background:linear-gradient(90deg,#2f6f5e,#4a8e7c)" data-w="95"></div></div>
+            <span class="val">95</span>
+          </div>
+          <div class="bench-row">
+            <span class="label text-[13.5px] font-medium text-ink">React / Vue</span>
+            <div class="bar-bg"><div class="bar-fill h-full rounded-md" style="width:0%;background:linear-gradient(90deg,#2f6f5e,#4a8e7c)" data-w="88"></div></div>
+            <span class="val">88</span>
+          </div>
+          <div class="bench-row">
+            <span class="label text-[13.5px] font-medium text-ink">Node / Bun</span>
+            <div class="bar-bg"><div class="bar-fill h-full rounded-md" style="width:0%;background:linear-gradient(90deg,#2f6f5e,#4a8e7c)" data-w="82"></div></div>
+            <span class="val">82</span>
+          </div>
+          <div class="bench-row">
+            <span class="label text-[13.5px] font-medium text-ink">Figma / 原型</span>
+            <div class="bar-bg"><div class="bar-fill h-full rounded-md" style="width:0%;background:linear-gradient(90deg,#c97b3f,#dd9c66)" data-w="76"></div></div>
+            <span class="val">76</span>
+          </div>
+          <div class="bench-row">
+            <span class="label text-[13.5px] font-medium text-ink">Rust / WASM</span>
+            <div class="bar-bg"><div class="bar-fill h-full rounded-md" style="width:0%;background:linear-gradient(90deg,#c97b3f,#dd9c66)" data-w="54"></div></div>
+            <span class="val">54</span>
+          </div>
+        </div>
+        <div class="mt-5 grid grid-cols-2 gap-4">
+          <div class="card-soft p-5">
+            <p class="font-mono text-[11.5px] uppercase tracking-[.16em] text-muted">Writing</p>
+            <p class="mt-2 text-[14px] leading-relaxed text-body">每月一篇长文，讲工程实践里的具体问题与解法。</p>
+          </div>
+          <div class="card-soft p-5">
+            <p class="font-mono text-[11.5px] uppercase tracking-[.16em] text-muted">Mentoring</p>
+            <p class="mt-2 text-[14px] leading-relaxed text-body">偶尔带实习生，也乐于回答社区里的前端问题。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="rule mx-auto max-w-5xl"></div>
+</section>
+
+<!-- ══ PATH ══ -->
+<section id="path" class="layer">
+  <div class="mx-auto max-w-5xl px-6 py-14 md:px-8 md:py-20">
+    <p class="font-mono text-[12px] uppercase tracking-[.18em] text-accent">Path</p>
+    <h2 class="mt-2 font-display text-[26px] tracking-tight text-ink md:text-[32px]">一段路</h2>
+
+    <div class="tl relative mt-8 pl-0">
+      <div class="step relative mb-8 pl-[60px]">
+        <span class="tl-dot">
+          <svg class="h-4 w-4 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 4 7v6c0 4.4 3.4 7.7 8 8 4.6-.3 8-3.6 8-8V7Z"/></svg>
+        </span>
+        <p class="font-mono text-[12px] text-muted">2024 — 至今</p>
+        <h3 class="mt-1 text-[17px] font-semibold text-ink">独立开发者</h3>
+        <p class="mt-2 max-w-2xl text-[14.5px] leading-[1.65] text-body">做「潮汐」可视化工具，服务独立开发者与小团队。同时维护两个开源库。</p>
+      </div>
+
+      <div class="step relative mb-8 pl-[60px]">
+        <span class="tl-dot">
+          <svg class="h-4 w-4 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+        </span>
+        <p class="font-mono text-[12px] text-muted">2021 — 2024</p>
+        <h3 class="mt-1 text-[17px] font-semibold text-ink">某科技公司 · 前端架构师</h3>
+        <p class="mt-2 max-w-2xl text-[14.5px] leading-[1.65] text-body">主导设计系统从 0 到 1，覆盖 8 条产品线；把首屏加载从 4.2s 优化到 1.3s。</p>
+      </div>
+
+      <div class="step relative mb-8 pl-[60px]">
+        <span class="tl-dot">
+          <svg class="h-4 w-4 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 21v-6h6v6"/></svg>
+        </span>
+        <p class="font-mono text-[12px] text-muted">2018 — 2021</p>
+        <h3 class="mt-1 text-[17px] font-semibold text-ink">某 SaaS 创业公司 · 前端工程师</h3>
+        <p class="mt-2 max-w-2xl text-[14.5px] leading-[1.65] text-body">从零搭建管理后台的可视化编辑器，成为团队最被依赖的模块。</p>
+      </div>
+
+      <div class="step relative pl-[60px]">
+        <span class="tl-dot">
+          <svg class="h-4 w-4 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10 12 5 2 10l10 5Z"/><path d="M6 12v5c0 1.7 2.7 3 6 3s6-1.3 6-3v-5"/></svg>
+        </span>
+        <p class="font-mono text-[12px] text-muted">2016 — 2018</p>
+        <h3 class="mt-1 text-[17px] font-semibold text-ink">起点</h3>
+        <p class="mt-2 max-w-2xl text-[14.5px] leading-[1.65] text-body">计算机专业毕业，写下了第一行 JavaScript。</p>
+      </div>
+    </div>
+  </div>
+  <div class="rule mx-auto max-w-5xl"></div>
+</section>
+
+<!-- ══ CONTACT ══ -->
+<section id="contact" class="layer">
+  <div class="mx-auto max-w-5xl px-6 py-14 md:px-8 md:py-20">
+    <div class="card overflow-hidden">
+      <div class="grid grid-cols-1 md:grid-cols-12">
+        <div class="p-8 md:col-span-7 md:p-10">
+          <p class="font-mono text-[12px] uppercase tracking-[.18em] text-accent">Contact</p>
+          <h2 class="mt-2 font-display text-[26px] tracking-tight text-ink md:text-[32px]">聊点具体的</h2>
+          <p class="mt-4 max-w-lg text-[15px] leading-[1.7] text-body">
+            无论是一个产品想法、一个技术难题，还是单纯想认识一下 —— 我通常在 24 小时内回信。
           </p>
-          <p>
-            工作之外，我写技术文章、折腾开源小工具、爬山，
-            以及不断练习用更少的代码解决更多的问题。
-          </p>
-          <div class="tags">
-            <span>产品设计</span><span>前端工程</span><span>设计系统</span>
-            <span>AI 工作流</span><span>开源</span>
+          <div class="mt-7 flex flex-col gap-3 sm:flex-row">
+            <a href="mailto:hello@example.com" class="inline-flex items-center justify-center gap-2 rounded-full bg-primary px-5 py-2.5 text-[14px] font-medium text-white transition hover:bg-[#265c4d]">
+              <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 6 10-6"/></svg>
+              hello@example.com
+            </a>
+            <a href="https://github.com/" target="_blank" rel="noopener" class="inline-flex items-center justify-center gap-2 rounded-full border border-line bg-white px-5 py-2.5 text-[14px] font-medium text-ink transition hover:border-primary/40 hover:text-primary">
+              <svg class="h-4 w-4" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1.1-.7.1-.7.1-.7 1.2.1 1.9 1.2 1.9 1.2 1.1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.8-1.6-2.6-.3-5.4-1.3-5.4-5.9 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.5.1-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0C17.4 5.4 18.4 5.7 18.4 5.7c.6 1.7.2 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .5Z"/></svg>
+              GitHub
+            </a>
           </div>
         </div>
-        <aside class="card about-card">
-          <h3>快速事实</h3>
-          <dl>
-            <div><dt>所在地</dt><dd>中国 · 杭州</dd></div>
-            <div><dt>当前状态</dt><dd><span class="status-ok">在职</span>，寻求有意思的新机会</dd></div>
-            <div><dt>语言</dt><dd>中文 · English</dd></div>
-            <div><dt>邮箱</dt><dd><a href="mailto:hello@example.com">hello@example.com</a></dd></div>
-          </dl>
-        </aside>
-      </div>
-    </div>
-  </section>
-
-  <!-- Work -->
-  <section id="work" class="section section-alt">
-    <div class="wrap">
-      <p class="section-tag">02 / 项目</p>
-      <h2 class="section-title">一些做过的东西。</h2>
-      <p class="section-sub">精选三个项目，覆盖从工具到内容再到基础设施。</p>
-
-      <div class="cards">
-        <article class="card project">
-          <div class="project-visual v1" aria-hidden="true"><span>⚡</span></div>
-          <div class="project-body">
-            <div class="project-meta"><span class="pill">开发者工具</span><span>2025</span></div>
-            <h3>Flow CLI</h3>
-            <p>一个把重复工作自动化的命令行工具，支持用自然语言描述生成工作流，把三天的手工操作压缩到三分钟。</p>
-            <ul class="project-points">
-              <li>架构设计 + TypeScript 实现</li>
-              <li>开源后 2.4k star</li>
-            </ul>
-            <div class="project-links">
-              <a href="#" class="link">项目主页 ↗</a>
-              <a href="#" class="link">源码 ↗</a>
-            </div>
+        <div class="flex flex-col justify-center gap-3 bg-paper/70 p-8 md:col-span-5 md:p-10">
+          <div class="flex items-baseline justify-between border-b border-line pb-2.5">
+            <span class="text-[13px] text-muted">所在地</span>
+            <span class="font-mono text-[13px] text-ink">Hangzhou, CN</span>
           </div>
-        </article>
-
-        <article class="card project">
-          <div class="project-visual v2" aria-hidden="true"><span>◈</span></div>
-          <div class="project-body">
-            <div class="project-meta"><span class="pill">内容 / 社区</span><span>2024</span></div>
-            <h3>Design Notes</h3>
-            <p>一个面向设计师的中文知识站点，累计 120+ 篇原创文章，覆盖设计系统、AI 工具与团队协作。</p>
-            <ul class="project-points">
-              <li>从 0 搭建 Next.js 前端</li>
-              <li>月活稳定在 1.5 万</li>
-            </ul>
-            <div class="project-links">
-              <a href="#" class="link">访问站点 ↗</a>
-              <a href="#" class="link">写作复盘 ↗</a>
-            </div>
+          <div class="flex items-baseline justify-between border-b border-line pb-2.5">
+            <span class="text-[13px] text-muted">时区</span>
+            <span class="font-mono text-[13px] text-ink">UTC+8</span>
           </div>
-        </article>
-
-        <article class="card project">
-          <div class="project-visual v3" aria-hidden="true"><span>◐</span></div>
-          <div class="project-body">
-            <div class="project-meta"><span class="pill">基础设施</span><span>2023</span></div>
-            <h3>Data Kit</h3>
-            <p>一套轻量数据处理工具集，用统一接口清洗和同步多来源数据，让团队每周省下约 20 小时人工整理。</p>
-            <ul class="project-points">
-              <li>核心库 + CLI 双形态</li>
-              <li>被 3 个内部团队接入</li>
-            </ul>
-            <div class="project-links">
-              <a href="#" class="link">案例说明 ↗</a>
-              <a href="#" class="link">技术文档 ↗</a>
-            </div>
+          <div class="flex items-baseline justify-between border-b border-line pb-2.5">
+            <span class="text-[13px] text-muted">状态</span>
+            <span class="inline-flex items-center gap-1.5 font-mono text-[13px] text-ink">
+              <span class="h-1.5 w-1.5 rounded-full bg-primary"></span>开放合作
+            </span>
           </div>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <!-- Skills -->
-  <section id="skills" class="section">
-    <div class="wrap">
-      <p class="section-tag">03 / 技能</p>
-      <h2 class="section-title">我的工具箱。</h2>
-      <div class="skills-grid">
-        <div class="skill-col">
-          <h3 class="skill-head">设计与产品</h3>
-          <ul class="skill-list">
-            <li style="--w: 90%"><span>界面设计</span><em>90%</em></li>
-            <li style="--w: 85%"><span>交互原型</span><em>85%</em></li>
-            <li style="--w: 80%"><span>设计系统搭建</span><em>80%</em></li>
-            <li style="--w: 70%"><span>用户研究</span><em>70%</em></li>
-          </ul>
-        </div>
-        <div class="skill-col">
-          <h3 class="skill-head">工程实现</h3>
-          <ul class="skill-list">
-            <li style="--w: 90%"><span>TypeScript</span><em>90%</em></li>
-            <li style="--w: 88%"><span>React / Next.js</span><em>88%</em></li>
-            <li style="--w: 85%"><span>CSS 与动效</span><em>85%</em></li>
-            <li style="--w: 75%"><span>Node.js</span><em>75%</em></li>
-          </ul>
-        </div>
-        <div class="skill-col">
-          <h3 class="skill-head">协作与工具</h3>
-          <ul class="skill-list">
-            <li style="--w: 95%"><span>Figma</span><em>95%</em></li>
-            <li style="--w: 82%"><span>Git / CI</span><em>82%</em></li>
-            <li style="--w: 80%"><span>AI 辅助工作流</span><em>80%</em></li>
-            <li style="--w: 78%"><span>技术写作</span><em>78%</em></li>
-          </ul>
+          <div class="flex items-baseline justify-between">
+            <span class="text-[13px] text-muted">回复速度</span>
+            <span class="font-mono text-[13px] text-ink">&lt; 24h</span>
+          </div>
         </div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- Contact -->
-  <section id="contact" class="section section-alt">
-    <div class="wrap">
-      <p class="section-tag">04 / 联系</p>
-      <h2 class="section-title">聊聊？</h2>
-      <p class="section-sub">
-        无论是合作、咨询，还是只是想聊聊某个有意思的技术点，
-        我都很乐意收到你的消息。
-      </p>
-      <div class="contact-grid">
-        <a class="contact-card" href="mailto:hello@example.com">
-          <span class="contact-icon">✉</span>
-          <span class="contact-body">
-            <strong>发邮件</strong>
-            <em>hello@example.com</em>
-          </span>
-        </a>
-        <a class="contact-card" href="#" >
-          <span class="contact-icon">◍</span>
-          <span class="contact-body">
-            <strong>GitHub</strong>
-            <em>@yourname</em>
-          </span>
-        </a>
-        <a class="contact-card" href="#">
-          <span class="contact-icon">✆</span>
-          <span class="contact-body">
-            <strong>社交平台</strong>
-            <em>@yourname</em>
-          </span>
-        </a>
-      </div>
-    </div>
-  </section>
-
-</main>
-
-<footer class="site-footer">
-  <div class="wrap footer-inner">
-    <p>© <span id="year">2026</span> 你的名字 · 用 GitHub Pages 发布</p>
-    <a href="#top" class="to-top">回到顶部 ↑</a>
+<footer class="layer border-t border-line/70">
+  <div class="mx-auto flex max-w-5xl flex-col items-center justify-between gap-3 px-6 py-7 md:flex-row md:px-8">
+    <p class="font-mono text-[12.5px] text-muted">© 2026 林向晚 · Built with plain HTML &amp; Tailwind</p>
+    <a href="#top" class="group inline-flex items-center gap-1.5 text-[13px] text-muted transition hover:text-primary">
+      回到顶部
+      <svg class="h-3.5 w-3.5 transition-transform group-hover:-translate-y-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 15 7-7 7 7"/></svg>
+    </a>
   </div>
 </footer>
 
-<script src="assets/main.js"></script>
+<script>
+  // 入场动画
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.fade-up').forEach(el => io.observe(el));
+
+  // 进度条：进入视口后填充
+  const bars = document.querySelectorAll('.bar-fill');
+  const fill = () => bars.forEach((b, i) => setTimeout(() => { b.style.width = b.dataset.w + '%'; }, 100 * i));
+  const bio = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { fill(); bio.unobserve(e.target); } });
+  }, { threshold: 0.15 });
+  const stackCard = document.querySelector('#stack .card');
+  if (stackCard) bio.observe(stackCard);
+  // 兜底：若 1.2s 后仍未触发动画（部分浏览器/打印场景），直接填充
+  setTimeout(() => { bars.forEach(b => { if (b.style.width === '0%') b.style.width = b.dataset.w + '%'; }); }, 1200);
+</script>
 </body>
 </html>
